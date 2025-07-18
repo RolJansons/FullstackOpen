@@ -1,4 +1,5 @@
-'''mermaid
+Here is a sequence diagram depicting the situation where the user creates a new note on the page https://studies.cs.helsinki.fi/exampleapp/notes by writing something into the text field and clicking the Save button.
+
 sequenceDiagram
     participant browser
     participant server
@@ -25,5 +26,4 @@ sequenceDiagram
     server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
     deactivate server
 
-    Note right of browser: The browser executes the callback function that renders the notes
-'''
+    Note right of browser: The browser executes the callback function that renders the note
