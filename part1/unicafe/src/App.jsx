@@ -3,9 +3,47 @@ import { useState } from 'react'
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
 const Display = ({text, counter}) => {
+
   console.log(text, counter)
   return (
     <p>{text}{counter}</p>
+  )
+}
+
+const Statistics = ({good, neutral, bad}) => {
+    
+  const average = (good, neutral, bad) => {
+    const a = good * 1
+    const b = neutral * 0
+    const c = bad * -1
+    const sum = good + neutral + bad
+    return (a + b + c)/ sum
+  }
+
+  const positive = (good, neutral, bad) => {
+    const sum = good + neutral + bad
+    const pos = good / sum * 100
+    return (
+      <>{pos} %</>
+    )
+  }
+
+  if (good + bad + neutral === 0){
+    return (
+    <div>
+      No feedback given
+    </div>
+    )
+  }
+  return (
+    <div>
+      <Display text='good ' counter={good}/>
+      <Display text='neutral ' counter={neutral}/>
+      <Display text='bad ' counter={bad}/>
+      <Display text='all ' counter={good + bad + neutral}/>
+      <Display text='average ' counter={average(good, neutral, bad)}/>
+      <Display text='positive ' counter={positive(good, neutral, bad)}/>
+    </div>
   )
 }
 
@@ -35,23 +73,6 @@ const App = () => {
     )
   }
 
-  const average = (good, neutral, bad) => {
-    const a = good * 1
-    const b = neutral * 0
-    const c = bad * -1
-    const sum = good + neutral + bad
-    console.log('average', (a + b + c)/ sum)
-    return (a + b + c)/ sum
-  }
-
-  const positive = (good, neutral, bad) => {
-    const sum = good + neutral + bad
-    const pos = good / sum
-    return (
-      <>{pos} %</>
-    )
-  }
-
   return (
     <div>
       <h1>give feedback</h1>
@@ -59,12 +80,7 @@ const App = () => {
       <Button onClick={handleNeutralClick} text='neutral' />
       <Button onClick={handleBadClick} text='bad' />
       <h1>statistics</h1>
-      <Display text='good ' counter={good}/>
-      <Display text='neutral ' counter={neutral}/>
-      <Display text='bad ' counter={bad}/>
-      <Display text='all ' counter={good + bad + neutral}/>
-      <Display text='average ' counter={average(good, neutral, bad)}/>
-      <Display text='positive ' counter={positive(good, neutral, bad)}/>
+      <Statistics good={good} neutral={neutral} bad={bad}/>
 
     </div>
   )
