@@ -8,6 +8,23 @@ const getRandomInt = (max) => {
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
+const Display = ({anecdotes, votes}) => {
+  const mostVotesIdx = votes.indexOf(Math.max(...votes))
+  console.log('index with most votes', mostVotesIdx)
+  if (Math.max(...votes) === 0) {
+    return (
+      <div>
+        No votes yet
+      </div>
+    )
+  }
+  return (
+    <div>
+      {anecdotes[mostVotesIdx]}
+    </div>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -34,7 +51,6 @@ const App = () => {
     console.log('previous votes state:', votes)
     const copy = [...votes]
     copy[selected] += 1
-    console.log('next votes state:', copy)
     return (
       setVotes(copy)
     )
@@ -42,10 +58,13 @@ const App = () => {
 
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-      <p>has {votes[selected]} votes</p>
-      <Button onClick={() => handleVoteClick()} text='vote'/>
-      <Button onClick={() => handleAnecdoteClick()} text='next anecdote'/>
+      <h1>Anecdote of the day</h1>
+        <p>{anecdotes[selected]}</p>
+        <p>has {votes[selected]} votes</p>
+        <Button onClick={() => handleVoteClick()} text='vote'/>
+        <Button onClick={() => handleAnecdoteClick()} text='next anecdote'/>
+      <h1>Anecdote with most votes</h1>
+        <Display anecdotes={anecdotes} votes={votes}/>
     </div>
   )
 }
